@@ -1,7 +1,7 @@
-package com.example.demo.office.controller;
+package com.example.office.controller;
 
-import com.example.demo.office.utils.DocxToHtmlUtils;
-import com.example.demo.office.utils.ReturnMassage;
+import com.example.office.utils.ToHtmlUtils;
+import com.example.office.utils.ReturnMassage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,10 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
-public class DocxToHtmlController {
+public class ToHtmlController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -44,13 +43,13 @@ public class DocxToHtmlController {
                 return ReturnMassage.ok().put("ok","文件路径错误！");
             }
             String hPath = path.substring(path.lastIndexOf("\\")+1);
-            String ext = DocxToHtmlUtils.GetFileExt(path);
+            String ext = ToHtmlUtils.GetFileExt(path);
             String htmlPath = System.getProperty("user.dir") +"\\html\\"+hPath;
 
             if("docx".equals(ext)){
-                DocxToHtmlUtils.convertDocxToHtml(path,htmlPath);
+                ToHtmlUtils.convertDocxToHtml(path,htmlPath);
             }else if("pdf".equals(ext)){
-                DocxToHtmlUtils.PdfToImage(path,htmlPath);
+                ToHtmlUtils.PdfToImage(path,htmlPath);
             }else if("xlsx".equals(ext)){
                 //String wPath = "E:\\docx4j-test\\docxToHtml";
                 Map<String, String> infoMap = new HashMap<String, String>();
@@ -62,7 +61,7 @@ public class DocxToHtmlController {
                     demoFile.getParentFile().mkdirs();
                     demoFile.createNewFile();
                 }
-                DocxToHtmlUtils.excelToHtml(path,demoFile.getAbsolutePath(),infoMap);
+                ToHtmlUtils.excelToHtml(path,demoFile.getAbsolutePath(),infoMap);
                 htmlPath = htmlPath + "\\demo";
             }else{
                 return ReturnMassage.ok().put("ok","不支持该类型文件！");

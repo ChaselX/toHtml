@@ -1,6 +1,6 @@
-package com.example.demo.office.utils;
+package com.example.office.utils;
 
-import com.example.demo.office.exception.RcsException;
+import com.example.office.exception.RuntimeCodeException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.docx4j.Docx4J;
@@ -12,10 +12,9 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 
-public class DocxToHtmlUtils  {
+public class ToHtmlUtils {
 
 
     final  static boolean save;
@@ -59,12 +58,9 @@ public class DocxToHtmlUtils  {
             if (wordMLPackage.getMainDocumentPart().getFontTablePart()!=null) {
                 wordMLPackage.getMainDocumentPart().getFontTablePart().deleteEmbeddedFontTempFiles();
             }
-            // This would also do it, via finalize() methods
-            htmlSettings = null;
-            wordMLPackage = null;
             os.close();
         }catch (Exception e){
-            throw new RcsException("系统错误");
+            throw new RuntimeCodeException("系统错误");
         }
     }
 
@@ -80,8 +76,6 @@ public class DocxToHtmlUtils  {
         Long randStr = 0l;
         //PDF转换成HTML保存的文件夹
         //本机当做服务器
-        //String path = "E:\\docx4j-test\\docxToHtml\\pdf";
-        //String path = System.getProperty("user.dir") +"\\html\\pdf";
         File htmlsDir = new File(htmlPath);
         if(!htmlsDir.exists()){
             htmlsDir.mkdirs();
@@ -193,15 +187,10 @@ public class DocxToHtmlUtils  {
      * excel to html
      */
     public static void excelToHtml(String filePath,String htmlFile, Map<String, String> infoMap) {
-        //String localFile = "D://demo.xlsx";
-
         FileWriter writer = null;
         try {
             String result = POIReadExcel.readExcelToHtml(new FileInputStream(filePath), infoMap);
-//    		String file = "D:\\A.html";
-//            String file = "D://excel/demo.html";
             writer = new FileWriter(htmlFile);
-//            writer.write("<body>");
             writer.write(result);
             writer.write("<script>;(function (win, lib) {\n" +
                     "  var doc = win.document\n" +
@@ -377,34 +366,4 @@ public class DocxToHtmlUtils  {
         }
         return ext;
     }
-
-
-    public static void main(String[] args)
-            throws Exception {
-//        File file = new File("E:\\移动项目\\toHtml\\src\\main\\resources\\templates\\demo.html");
-//        Runtime ce=Runtime.getRuntime();
-//        System.out.println(file.getAbsolutePath());
-//        ce.exec("rundll32 url.dll,FileProtocolHandler " + file.getAbsolutePath());
-        //ce.exec("cmd   /c   start  "+file.getAbsolutePath());
-
-        File f = new File("E:\\docx4j-test\\docxToHtml","demo.html");
-        if(f.exists()) {
-            // 文件已经存在，输出文件的相关信息
-            System.out.println(f.getAbsolutePath());
-            System.out.println(f.getName());
-            System.out.println(f.length());
-        } else {
-            //  先创建文件所在的目录
-            f.getParentFile().mkdirs();
-            try {
-                // 创建新文件
-                f.createNewFile();
-            } catch (IOException e) {
-                System.out.println("创建新文件时出现了错误。。。");
-                e.printStackTrace();
-            }
-        }
-
-    }
-
 }

@@ -1,4 +1,4 @@
-package com.example.demo.office.utils;
+package com.example.office.utils;
 
 import org.apache.poi.POIXMLDocumentPart;
 import org.apache.poi.hssf.usermodel.*;
@@ -16,12 +16,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-/**
- * @ClassName: PoiExcelToHtmlUtil
- * @Description: TODO(poi转excel为html)
- */
 
 public class POIReadExcel {
 //	private static Logger logger = Logger.getLogger(POIReadExcel.class);
@@ -270,9 +264,6 @@ public class POIReadExcel {
                     num = information.getHorizontalSplitPosition();
                     Row r = sheet.getRow(num - 1);
                     Cell c = r.getCell(num - 1);
-//                    String titleValue = getCellValue(c);
-//                    System.out.println("表头信息"+titleValue+"===="+num);
-//					sb.append("<tr class='titile' > <th>"+titleValue+"</th></tr>");
                 }
             }
             sb.append("<div><table style='margin-bottom:90%;' border='1' cellpadding='0' cellspacing=0>");
@@ -333,8 +324,6 @@ public class POIReadExcel {
                     }
                     if (sheetIndexPicMap != null && sheetIndexPicMap.containsKey(imageRowNum)) {
                         String imagePath = imgMap.get(imageRowNum);
-//                    	logger.info(String.format("imageKey=%s, imagePath=%s", imageRowNum, imagePath));
-//                    	imageHtml = "<img src='" + imagePath + "' style='height:" + rowHeight / 2 + "px;'>";
                         imageHtml = "<img src='" + imagePath + "' style='height:auto;'>";
                     }
                     String
@@ -976,185 +965,4 @@ public class POIReadExcel {
 //			logger.error("printImg error: "+e.getMessage(), e);
         }
     }
-
-    public static void main(String[] args) throws Exception {
-////        String localFile = "E:\\《彩讯-Richinfo》\\《待开发》\\《负一屏项目各版本实现》\\5月需求4.28（V2.3.0）\\富文本编辑器\\日报展示模板(测).xlsx";
-//        String localFile = "D://demo.xlsx";
-//        Map<String, String> infoMap = new HashMap<String, String>();
-//        infoMap.put("uploadFile", "/home/local/nfs/RCSOA_UPLOAD_TEST/attachment/internalinformation_file/excelPic/");
-//        infoMap.put("readfile", "D:/home/local/nfs/RCSOA_UPLOAD_TEST/attachment/internalinformation_file/excelPic/");
-//        String result = readExcelToHtml(new FileInputStream(localFile), infoMap);
-//        FileWriter writer = null;
-//        try {
-////    		String file = "D:\\A.html";
-//            String file = "D://excel/demo.html";
-//            writer = new FileWriter(file);
-////            writer.write("<body>");
-//            writer.write(result);
-//            writer.write("<script>;(function (win, lib) {\n" +
-//                    "  var doc = win.document\n" +
-//                    "  var docEl = doc.documentElement\n" +
-//                    "  var metaEl = doc.querySelector('meta[name=\"viewport\"]')\n" +
-//                    "  var flexibleEl = doc.querySelector('meta[name=\"flexible\"]')\n" +
-//                    "  var dpr = 0\n" +
-//                    "  var scale = 0\n" +
-//                    "  var tid\n" +
-//                    "  var flexible = lib.flexible || (lib.flexible = {})\n" +
-//                    "\n" +
-//                    "  if (metaEl) {\n" +
-//                    "    console.warn('将根据已有的meta标签来设置缩放比例')\n" +
-//                    "    var match = metaEl.getAttribute('content').match(/initial-scale=([\\d.]+)/)\n" +
-//                    "    if (match) {\n" +
-//                    "      scale = parseFloat(match[1])\n" +
-//                    "      dpr = parseInt(1 / scale)\n" +
-//                    "    }\n" +
-//                    "  } else if (flexibleEl) {\n" +
-//                    "    var content = flexibleEl.getAttribute('content')\n" +
-//                    "    if (content) {\n" +
-//                    "      var initialDpr = content.match(/initial-dpr=([\\d.]+)/)\n" +
-//                    "      var maximumDpr = content.match(/maximum-dpr=([\\d.]+)/)\n" +
-//                    "      if (initialDpr) {\n" +
-//                    "        dpr = parseFloat(initialDpr[1])\n" +
-//                    "        scale = parseFloat((1 / dpr).toFixed(2))\n" +
-//                    "      }\n" +
-//                    "      if (maximumDpr) {\n" +
-//                    "        dpr = parseFloat(maximumDpr[1])\n" +
-//                    "        scale = parseFloat((1 / dpr).toFixed(2))\n" +
-//                    "      }\n" +
-//                    "    }\n" +
-//                    "  }\n" +
-//                    "\n" +
-//                    "  if (!dpr && !scale) {\n" +
-//                    "    var isIPhone = win.navigator.appVersion.match(/iphone/gi)\n" +
-//                    "    var devicePixelRatio = win.devicePixelRatio\n" +
-//                    "    if (isIPhone) {\n" +
-//                    "      // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案\n" +
-//                    "      if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {\n" +
-//                    "        dpr = 3\n" +
-//                    "      } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)) {\n" +
-//                    "        dpr = 2\n" +
-//                    "      } else {\n" +
-//                    "        dpr = 1\n" +
-//                    "      }\n" +
-//                    "    } else {\n" +
-//                    "      // 其他设备下，仍旧使用1倍的方案\n" +
-//                    "      dpr = 1\n" +
-//                    "    }\n" +
-//                    "    scale = 1 / dpr\n" +
-//                    "  }\n" +
-//                    "\n" +
-//                    "  docEl.setAttribute('data-dpr', dpr)\n" +
-//                    "  if (!metaEl) {\n" +
-//                    "    metaEl = doc.createElement('meta')\n" +
-//                    "    metaEl.setAttribute('name', 'viewport')\n" +
-//                    "    metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no')\n" +
-//                    "    if (docEl.firstElementChild) {\n" +
-//                    "      docEl.firstElementChild.appendChild(metaEl)\n" +
-//                    "    } else {\n" +
-//                    "      var wrap = doc.createElement('div')\n" +
-//                    "      wrap.appendChild(metaEl)\n" +
-//                    "      doc.write(wrap.innerHTML)\n" +
-//                    "    }\n" +
-//                    "  }\n" +
-//                    "\n" +
-//                    "  function refreshRem () {\n" +
-//                    "    var width = docEl.getBoundingClientRect().width\n" +
-//                    "    if (width / dpr > 540) {\n" +
-//                    "      width = 540 * dpr\n" +
-//                    "    }\n" +
-//                    "    var rem = width / 10\n" +
-//                    "    docEl.style.fontSize = rem + 'px'\n" +
-//                    "    flexible.rem = win.rem = rem\n" +
-//                    "  }\n" +
-//                    "\n" +
-//                    "  win.addEventListener('resize', function () {\n" +
-//                    "    clearTimeout(tid)\n" +
-//                    "    tid = setTimeout(refreshRem, 300)\n" +
-//                    "  }, false)\n" +
-//                    "  win.addEventListener('pageshow', function (e) {\n" +
-//                    "    if (e.persisted) {\n" +
-//                    "      clearTimeout(tid)\n" +
-//                    "      tid = setTimeout(refreshRem, 300)\n" +
-//                    "    }\n" +
-//                    "  }, false)\n" +
-//                    "\n" +
-//                    "  if (doc.readyState === 'complete') {\n" +
-//                    "    doc.body.style.fontSize = 12 * dpr + 'px'\n" +
-//                    "  } else {\n" +
-//                    "    doc.addEventListener('DOMContentLoaded', function (e) {\n" +
-//                    "      doc.body.style.fontSize = 12 * dpr + 'px'\n" +
-//                    "    }, false)\n" +
-//                    "  }\n" +
-//                    "\n" +
-//                    "  refreshRem()\n" +
-//                    "\n" +
-//                    "  flexible.dpr = win.dpr = dpr\n" +
-//                    "  flexible.refreshRem = refreshRem\n" +
-//                    "  flexible.rem2px = function (d) {\n" +
-//                    "    var val = parseFloat(d) * this.rem\n" +
-//                    "    if (typeof d === 'string' && d.match(/rem$/)) {\n" +
-//                    "      val += 'px'\n" +
-//                    "    }\n" +
-//                    "    return val\n" +
-//                    "  }\n" +
-//                    "  flexible.px2rem = function (d) {\n" +
-//                    "    var val = parseFloat(d) / this.rem\n" +
-//                    "    if (typeof d === 'string' && d.match(/px$/)) {\n" +
-//                    "      val += 'rem'\n" +
-//                    "    }\n" +
-//                    "    return val\n" +
-//                    "  }\n" +
-//                    "})(window, window['lib'] || (window['lib'] = {}))</script>");
-//            writer.write("<script>let title = document.getElementById('sheet');\n" +
-//                    "let content = document.getElementById('content');\n" +
-//                    "title.onclick = event =>{\n" +
-//                    "  let e = event || window.event;\n" +
-//                    "  let target = e.target || e.srcElement;\n" +
-//                    "  if (target.nodeName.toLowerCase() == 'span') {\n" +
-//                    "    for(var i = 0; i < title.children.length; i++){\n" +
-//                    "        title.children[i].className = '';\n" +
-//                    "        content.children[i].style.display = 'none';\n" +
-//                    "        if(title.children[i] === target){\n" +
-//                    "            content.children[i].style.display = 'block';\n" +
-//                    "            var thead = content.children[i].children[0].children[0];\n" +
-//                    "            if(thead.tagName.toLowerCase() === 'thead'){\n" +
-//                    "                thead.style.transform = 'translate(0, '+ (content.scrollTop-1)+'px)';\n" +
-//                    "            }\n" +
-//                    "        }\n" +
-//                    "    }\n" +
-//                    "    target.className = 'active';\n" +
-//                    "  }\n" +
-//                    "}\n" +
-//                    "\n" +
-//                    "content.addEventListener('scroll', function () {\n" +
-//                    "  var top = this.scrollTop;\n" +
-//                    "  for(var j = 0; j < title.children.length; j++){\n" +
-//                    "    if (title.children[j].className === 'active') {\n" +
-//                    "      var thead = content.children[j].children[0].children[0];\n" +
-//                    "      if (thead.tagName.toLowerCase() === 'thead') {\n" +
-//                    "          thead.style.transform = 'translate(0, '+ (top-1)+'px)';\n" +
-//                    "      }\n" +
-//                    "    }\n" +
-//                    "  }\n" +
-//                    "})\n" +
-//                    "\n" +
-//                    "\n" +
-//                    "\n" +
-//                    "\n" +
-//                    "\n" +
-//                    "\n</script>");
-//            writer.write("</body>");
-//            writer.flush();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }finally {
-//            try {
-//                if(writer!=null)
-//                    writer.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-    }
-
 }

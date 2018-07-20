@@ -1,32 +1,32 @@
-package com.example.demo.office.exception;
+package com.example.office.exception;
 
 /**
  * 自定义异常
  *
  */
-public class RcsException extends RuntimeException {
+public class RuntimeCodeException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
     private String msg;
     private int code = 500;
     
-    public RcsException(String msg) {
+    public RuntimeCodeException(String msg) {
 		super(msg);
 		this.msg = msg;
 	}
 	
-	public RcsException(String msg, Throwable e) {
+	public RuntimeCodeException(String msg, Throwable e) {
 		super(msg, e);
 		this.msg = msg;
 	}
 	
-	public RcsException(String msg, int code) {
+	public RuntimeCodeException(String msg, int code) {
 		super(msg);
 		this.msg = msg;
 		this.code = code;
 	}
 	
-	public RcsException(String msg, int code, Throwable e) {
+	public RuntimeCodeException(String msg, int code, Throwable e) {
 		super(msg, e);
 		this.msg = msg;
 		this.code = code;
