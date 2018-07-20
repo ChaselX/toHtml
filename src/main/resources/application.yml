@@ -1,0 +1,29 @@
+# Tomcat
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 8080
+  servlet:
+   context-path: /office
+
+
+logging:
+  level:
+    com:
+      cmic: info
+    org:
+      apache:
+        http: info
+        coyote:
+          http11: info
+  file: logs/doctohtml-log.log
+
+  # 指定静态资源的路径
+spring:
+   resources:
+     static-locations: classpath:/static/,classpath:/templates/
+
+
+

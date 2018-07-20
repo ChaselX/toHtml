@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+</head>
+<body>
+<h1 th:inlines="text">文件转换</h1>
+
+    <p>选择文件: <input type="file"  name="file" id="file"/></p>
+    <p><input type="button" id = "import" value="转换" onclick="_s();"/></p>
+
+</body>
+</html>
+<script src="js/jquery.min.js"></script>
+<script  type="text/javascript">
+
+
+    function _s() {
+        var selectedFile = document.getElementById("file").files[0];
+        //alert(selectedFile);
+        if(selectedFile == null || selectedFile == "" ){
+            alert("请选择文件");
+            return false;
+        }
+        var formFile = new FormData();
+        formFile.append("action", "DocToHtml");
+        formFile.append("file", selectedFile);
+        var data = formFile;
+        $.ajax({
+            type:'post',
+            data: data,
+            url: '/office/officeToHtml',
+            dataType:"json",
+            cache: false,
+            processData: false,
+            contentType: false,
+            beforeSend: function(){
+                //临时前端处理重复提交
+                $("#import").attr("disabled","disabled");
+            },
+            success:function(res){
+                //
+                $("#import").removeAttr("disabled");
+                if(res.ok != null || res.ok != undefined) {
+                    alert(res.ok);
+                }
+            },
+            error:function(){
+                alert("转化失败！");
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+        })
+    }
+
+</script>
